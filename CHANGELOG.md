@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added `first-image` option for the `displayMode` prop of `product-images`.
+- Added `thumbnailVisibility` prop to `product-images`. When `dysplayMode` is set to `carousel` (default value), it adds the option to hide the thumbnails.
 ## [3.142.0] - 2021-03-09
 ### Added
 - Push `newsletterInput` pixel event when newsletter is mounted

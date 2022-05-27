@@ -184,10 +184,44 @@
       "type": "object",
       "description": "admin/editor.notification-bar.description",
       "properties": {
+        "isAdvanced": {
+          "title": "admin/editor.notification-bar.isAdvanced.title",
+          "description": "admin/editor.notification-bar.isAdvanced.description",
+          "type": "boolean",
+          "default": ""
+        },
         "content": {
           "title": "admin/editor.notification-bar.content.title",
           "description": "admin/editor.notification-bar.content.description",
-          "$ref": "app:vtex.native-types#/definitions/text"
+          "$ref": "app:vtex.native-types#/definitions/text",
+          "default": ""
+        },
+        "color": {
+          "title": "admin/editor.notification-bar.color.title",
+          "$ref": "app:vtex.native-types#/definitions/text",
+          "enum": ["Dark Blue", "Green", "Red", "Light Blue", "Yellow"],
+          "widget": {
+            "ui:widget": "select"
+          },
+          "default": ""
+        },
+        "link": {
+          "title": "admin/editor.notification-bar.link.title",
+          "$ref": "app:vtex.native-types#/definitions/url",
+          "default": ""
+        },
+        "linkText": {
+          "title": "admin/editor.notification-bar.linkText.title",
+          "$ref": "app:vtex.native-types#/definitions/text",
+          "default": ""
+        },
+        "icon": {
+          "title": "admin/editor.notification-bar.icon.title",
+          "$ref": "app:vtex.native-types#/definitions/url",
+          "default": "",
+          "widget": {
+            "ui:widget": "image-uploader"
+          }
         }
       }
     }

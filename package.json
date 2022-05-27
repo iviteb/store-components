@@ -1,5 +1,4 @@
 {
-  "version": "3.47.3",
   "name": "store-components",
   "private": true,
   "license": "UNLICENSED",
@@ -14,6 +13,9 @@
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
       "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,graphql,gql}": [
       "prettier --write"
     ],
     "*.json": [

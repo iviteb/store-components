@@ -2,7 +2,10 @@ import React, { memo, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 import { Link } from 'vtex.render-runtime'
-import { Icon } from 'vtex.store-icons'
+
+import AnnounceClose from './icons/AnnounceClose'
+import AnnounceRight from './icons/AnnounceRight'
+import AnnounceInfo from './icons/AnnounceInfo'
 
 const CSS_HANDLES = [
   'notificationBarContainer',
@@ -37,7 +40,7 @@ function AdvancedNotificationBar({
   let background = ''
   let iconBackground = ''
   let secondaryTheme = false // for ex the yellow bar has brown icons and text
-  let iconType = 'white'
+  let fill = '#fff'
 
   switch (color) {
     case 'Dark Blue':
@@ -63,7 +66,7 @@ function AdvancedNotificationBar({
     case 'Yellow':
       background = '#FFDE80'
       iconBackground = 'rgba(204, 151, 0, 0.3)'
-      iconType = 'brown'
+      fill = '#775800'
       secondaryTheme = true
       break
 
@@ -92,11 +95,7 @@ function AdvancedNotificationBar({
             {icon !== '' ? (
               <img src={icon} alt="barIcon" width={24} className="mr2 mt2" />
             ) : (
-              <Icon
-                id={`announce-info-${iconType}`}
-                size={30}
-                viewBox="0 0 24 18"
-              />
+              <AnnounceInfo fill={fill} size="30" viewBox="0 0 24 18" />
             )}
           </div>
 
@@ -112,9 +111,9 @@ function AdvancedNotificationBar({
               </p>
               <button
                 onClick={() => setShow(false)}
-                className="bg-transparent bn flex mb3"
+                className="bg-transparent bn pointer flex mb3"
               >
-                <Icon id={`announce-close-${iconType}`} />
+                <AnnounceClose fill={fill} />
               </button>
             </div>
 
@@ -129,11 +128,7 @@ function AdvancedNotificationBar({
               >
                 {linkText !== '' ? linkText : 'Link text'}
               </p>
-              <Icon
-                id={`announce-right-${iconType}`}
-                activeClassName="ml2"
-                fill="#00FF00"
-              />
+              <AnnounceRight fill={fill} />
             </Link>
           </div>
         </div>

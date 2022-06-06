@@ -2,6 +2,8 @@
   "store/search.placeholder": "Caută",
   "store/search.searchFor": "Caută {term}",
   "store/search.search-term-too-short": "Termenul de căutare este prea scurt",
+  "admin/editor.notification-list.title": "Lista de Notificari",
+  "admin/editor.notification-list.description": "Adauga sau scoate bare de notificari",
   "admin/editor.productName.title": "Denumire produs",
   "admin/editor.productName.description": "Componentă denumire produs",
   "admin/editor.productName.showBrandName.title": "Afișează denumirea mărcii",

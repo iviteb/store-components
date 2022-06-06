@@ -15,7 +15,7 @@ const CSS_HANDLES = [
 
 interface Props {
   /** Text to be used in the bar */
-  isAdvanced: boolean
+  isAdvanced?: boolean
   content?: string
   color?: string
   link?: string

@@ -2,6 +2,8 @@
   "store/search.placeholder": "search.placeholder",
   "store/search.searchFor": "search.searchFor",
   "store/search.search-term-too-short": "search.search-term-too-short",
+  "admin/editor.notification-list.title": "Notification List",
+  "admin/editor.notification-list.description": "Add or subtract notification bars",
   "admin/editor.productName.title": "admin/editor.productName.title",
   "admin/editor.productName.description": "admin/editor.productName.description",
   "admin/editor.productName.showBrandName.title": "admin/editor.productName.showBrandName.title",

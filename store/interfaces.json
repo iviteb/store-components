@@ -20,5 +20,18 @@
     "linkText": {
       "$ref": "app:auchanqa.store-components#/definitions/NotificationBar"
     }
+  },
+  "list-context.notification-list": {
+    "component": "NotificationBarList",
+    "content": {
+      "properties": {
+        "notifications": {
+          "type": "array",
+          "items": {
+            "$ref": "app:auchanqa.store-components#/definitions/NotificationBar"
+          }
+        }
+      }
+    }
   }
 }

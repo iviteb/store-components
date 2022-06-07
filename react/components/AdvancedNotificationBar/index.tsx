@@ -78,10 +78,12 @@ function AdvancedNotificationBar({
 
   const textColor = secondaryTheme ? '#775800' : '#fff'
 
+  if(!show) {
+    return null;
+  }
+  
   return (
-    <>
-      {show && (
-        <div
+     <div
           className={`${handles.notificationBarContainer} relative w-100 pv5`}
           style={{ backgroundColor: background }}
         >

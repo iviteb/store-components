@@ -78,64 +78,62 @@ function AdvancedNotificationBar({
 
   const textColor = secondaryTheme ? '#775800' : '#fff'
 
-  if(!show) {
-    return null;
+  if (!show) {
+    return null
   }
-  
+
   return (
-     <div
-          className={`${handles.notificationBarContainer} relative w-100 pv5`}
-          style={{ backgroundColor: background }}
-        >
-          <div
-            style={{
-              backgroundColor: iconBackground,
-              borderRadius: '0px 100px 100px 0px',
-            }}
-            className="fixed left-0 pa3"
-          >
-            {icon !== '' ? (
-              <img src={icon} alt="barIcon" width={24} className="mr2 mt2" />
-            ) : (
-              <AnnounceInfo fill={fill} size="30" viewBox="0 0 24 18" />
-            )}
-          </div>
+    <div
+      className={`${handles.notificationBarContainer} relative w-100 pv5`}
+      style={{ backgroundColor: background }}
+    >
+      <div
+        style={{
+          backgroundColor: iconBackground,
+          borderRadius: '0px 100px 100px 0px',
+        }}
+        className="fixed left-0 pa3"
+      >
+        {icon !== '' ? (
+          <img src={icon} alt="barIcon" width={24} className="mr2 mt2" />
+        ) : (
+          <AnnounceInfo fill={fill} size="30" viewBox="0 0 24 18" />
+        )}
+      </div>
 
-          <div
-            className={`${handles.notificationBarInner} min-h-large flex flex-column pl9 pr5 justify-around`}
+      <div
+        className={`${handles.notificationBarInner} min-h-large flex flex-column pl9 pr5 justify-around`}
+      >
+        <div className="flex justify-between">
+          <p
+            style={{ color: textColor }}
+            className={`${handles.notificationContent} link f6 fw4 lh-solid tl ma0 w-90 mb3`}
           >
-            <div className="flex justify-between">
-              <p
-                style={{ color: textColor }}
-                className={`${handles.notificationContent} link f6 fw4 lh-solid tl ma0 w-90 mb3`}
-              >
-                {content !== '' ? content : 'Announcement bar text content'}
-              </p>
-              <button
-                onClick={() => setShow(false)}
-                className="bg-transparent bn pointer flex mb3"
-              >
-                <AnnounceClose fill={fill} />
-              </button>
-            </div>
-
-            <Link
-              to={link}
-              style={{ width: 'fit-content' }}
-              className="flex items-center"
-            >
-              <p
-                style={{ color: textColor }}
-                className="f7 b lh-solid tl underline ttu ma0"
-              >
-                {linkText !== '' ? linkText : 'Link text'}
-              </p>
-              <AnnounceRight fill={fill} />
-            </Link>
-          </div>
+            {content !== '' ? content : 'Announcement bar text content'}
+          </p>
+          <button
+            onClick={() => setShow(false)}
+            className="bg-transparent bn pointer flex mb3"
+          >
+            <AnnounceClose fill={fill} />
+          </button>
         </div>
-      )}
-    </>
+
+        <Link
+          to={link}
+          style={{ width: 'fit-content' }}
+          className="flex items-center"
+        >
+          <p
+            style={{ color: textColor }}
+            className="f7 b lh-solid tl underline ttu ma0"
+          >
+            {linkText !== '' ? linkText : 'Link text'}
+          </p>
+          <AnnounceRight fill={fill} />
+        </Link>
+      </div>
+    </div>
   )
 }
 

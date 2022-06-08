@@ -1,7 +1,7 @@
 {
-  "vendor": "vtex",
+  "vendor": "auchanqa",
   "name": "store-components",
-  "version": "3.159.4",
+  "version": "0.0.1",
   "title": "VTEX Store Components",
   "defaultLocale": "pt-BR",
   "description": "The VTEX store components for that render apps can use",
@@ -36,7 +36,8 @@
     "vtex.store-icons": "0.x",
     "vtex.store-image": "0.x",
     "vtex.store-resources": "0.x",
-    "vtex.styleguide": "9.x"
+    "vtex.styleguide": "9.x",
+    "vtex.list-context": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

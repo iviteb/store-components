@@ -5,6 +5,7 @@ import { useCssHandles } from 'vtex.css-handles'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 
 import { SanitizedHTML } from './components/SanitizedHTML'
+import AdvancedNotificationBar from './components/AdvancedNotificationBar'
 
 const CSS_HANDLES = [
   'notificationBarContainer',
@@ -14,12 +15,25 @@ const CSS_HANDLES = [
 
 interface Props {
   /** Text to be used in the bar */
+  isAdvanced?: boolean
   content?: string
+  color?: string
+  link?: string
+  linkText?: string
+  icon?: string
   /** Used to override default CSS handles */
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
 }
 
-function NotificationBar({ content = '', classes }: Props) {
+function NotificationBar({
+  isAdvanced,
+  content = '',
+  color = '',
+  link = '',
+  linkText = '',
+  icon = '',
+  classes,
+}: Props) {
   const { handles } = useCssHandles(CSS_HANDLES, { classes })
   const intl = useIntl()
 
@@ -27,7 +41,7 @@ function NotificationBar({ content = '', classes }: Props) {
     return null
   }
 
-  return (
+  return !isAdvanced ? (
     <div
       className={`${handles.notificationBarContainer} bg-base--inverted c-on-base--inverted w-100`}
     >
@@ -41,6 +55,14 @@ function NotificationBar({ content = '', classes }: Props) {
         </div>
       </div>
     </div>
+  ) : (
+    <AdvancedNotificationBar
+      content={content}
+      color={color}
+      link={link}
+      linkText={linkText}
+      icon={icon}
+    />
   )
 }
 

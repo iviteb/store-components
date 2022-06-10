@@ -140,6 +140,7 @@
   "admin/editor.notification-bar.linkText.title": "Link text",
   "admin/editor.notification-bar.color.title": "Color",
   "admin/editor.notification-bar.icon.title": "Icon - Upload SVG Icon (default is info icon)",
+  "admin/editor.notification-bar.blockClass.title": "Block Class for store theme styling",
   "admin/editor.notification-bar.isAdvanced.title": "Set Advanced",
   "admin/editor.notification-bar.isAdvanced.description": "Set the announcement bar as Advanced",
   "admin/editor.blockClass.title": "CSS Block Class",

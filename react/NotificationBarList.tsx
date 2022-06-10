@@ -16,7 +16,7 @@ function NotificationBarList({ notifications }: NotificationListProps) {
 
   const imageListContent = notifications.map(({ ...props }, idx) => (
     <div key={idx}>
-      <NotificationBar {...props} />
+      <NotificationBar {...props} notifBarIdx={idx} />
     </div>
   ))
 
@@ -80,6 +80,11 @@ NotificationBarList.schema = {
           widget: {
             'ui:widget': 'image-uploader',
           },
+        },
+        blockClass: {
+          title: 'admin/editor.notification-bar.blockClass.title',
+          $ref: 'app:vtex.native-types#/definitions/text',
+          default: '',
         },
       },
     },

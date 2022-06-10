@@ -19,6 +19,9 @@
     },
     "linkText": {
       "$ref": "app:auchanqa.store-components#/definitions/NotificationBar"
+    },
+    "blockClass": {
+      "$ref": "app:auchanqa.store-components#/definitions/NotificationBar"
     }
   },
   "list-context.notification-list": {

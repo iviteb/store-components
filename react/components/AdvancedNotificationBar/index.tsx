@@ -92,7 +92,7 @@ function AdvancedNotificationBar({
           backgroundColor: iconBackground,
           borderRadius: '0px 100px 100px 0px',
         }}
-        className="fixed left-0 pa3"
+        className="absolute left-0 pa3"
       >
         {icon !== '' ? (
           <img src={icon} alt="barIcon" width={24} className="mr2 mt2" />

@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 import { Link } from 'vtex.render-runtime'
@@ -9,8 +9,17 @@ import AnnounceInfo from './icons/AnnounceInfo'
 
 const CSS_HANDLES = [
   'notificationBarContainer',
+  'notificationImageContainer',
+  'notificationImage',
   'notificationBarInner',
   'notificationContent',
+  'notificationText',
+  'notificationCloseButton',
+  'notificationLink',
+  'notificationLinkText',
+  'notificationBarIcon',
+  'notificationCloseIcon',
+  'notificationArrowRight',
 ] as const
 
 interface Props {
@@ -19,6 +28,8 @@ interface Props {
   link?: string
   linkText?: string
   icon?: string
+  notifBarIdx?: number
+  blockClass?: string
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
 }
 
@@ -28,10 +39,28 @@ function AdvancedNotificationBar({
   link,
   linkText,
   icon,
+  notifBarIdx,
+  blockClass,
   classes,
 }: Props) {
   const { handles } = useCssHandles(CSS_HANDLES, { classes })
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => {
+    sessionStorage.setItem(
+      `closeNotificationBar-${notifBarIdx?.toString()}`,
+      'true'
+    )
+    setShow(false)
+  }
+
+  useEffect(() => {
+    if (
+      !sessionStorage.getItem(`closeNotificationBar-${notifBarIdx?.toString()}`)
+    ) {
+      setShow(true)
+    }
+  }, [notifBarIdx])
 
   if (!content) {
     return null
@@ -84,7 +113,8 @@ function AdvancedNotificationBar({
 
   return (
     <div
-      className={`${handles.notificationBarContainer} relative w-100 pv5`}
+      className={`${handles.notificationBarContainer}${blockClass && `--${blockClass}`
+        } relative w-100 pv5`}
       style={{ backgroundColor: background }}
     >
       <div
@@ -92,45 +122,61 @@ function AdvancedNotificationBar({
           backgroundColor: iconBackground,
           borderRadius: '0px 100px 100px 0px',
         }}
-        className="absolute left-0 pa3"
+        className={`${handles.notificationImageContainer} absolute left-0 pa3`}
       >
         {icon !== '' ? (
-          <img src={icon} alt="barIcon" width={24} className="mr2 mt2" />
+          <img
+            src={icon}
+            alt="barIcon"
+            width={24}
+            className={`${handles.notificationImage} mr2 mt2`}
+          />
         ) : (
-          <AnnounceInfo fill={fill} size="30" viewBox="0 0 24 18" />
+          <AnnounceInfo
+            fill={fill}
+            styleClass={handles.notificationBarIcon}
+            size="30"
+            viewBox="0 0 24 18"
+          />
         )}
       </div>
 
       <div
         className={`${handles.notificationBarInner} min-h-large flex flex-column pl9 pr5 justify-around`}
       >
-        <div className="flex justify-between">
+        <div className={`${handles.notificationContent} flex justify-between`}>
           <p
             style={{ color: textColor }}
-            className={`${handles.notificationContent} link f6 fw4 lh-solid tl ma0 w-90 mb3`}
+            className={`${handles.notificationText} link f6 fw4 lh-solid tl ma0 w-90 mb3`}
           >
             {content !== '' ? content : 'Announcement bar text content'}
           </p>
           <button
-            onClick={() => setShow(false)}
-            className="bg-transparent bn pointer flex mb3"
+            onClick={() => handleClose()}
+            className={`${handles.notificationCloseButton} bg-transparent bn pointer flex mb3`}
           >
-            <AnnounceClose fill={fill} />
+            <AnnounceClose
+              fill={fill}
+              styleClass={handles.notificationCloseIcon}
+            />
           </button>
         </div>
 
         <Link
           to={link}
           style={{ width: 'fit-content' }}
-          className="flex items-center"
+          className={`${handles.notificationLink} flex items-center`}
         >
           <p
             style={{ color: textColor }}
-            className="f7 b lh-solid tl underline ttu ma0"
+            className={`${handles.notificationLinkText} f7 b lh-solid tl underline ttu ma0`}
           >
             {linkText !== '' ? linkText : 'Link text'}
           </p>
-          <AnnounceRight fill={fill} />
+          <AnnounceRight
+            fill={fill}
+            styleClass={handles.notificationArrowRight}
+          />
         </Link>
       </div>
     </div>

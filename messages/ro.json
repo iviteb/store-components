@@ -140,6 +140,7 @@
   "admin/editor.notification-bar.linkText.title": "Text link",
   "admin/editor.notification-bar.color.title": "Color",
   "admin/editor.notification-bar.icon.title": "Icon - Incarca SVG Icon (default este info icon)",
+  "admin/editor.notification-bar.blockClass.title": "Block Class pentru stilizare in store theme",
   "admin/editor.notification-bar.isAdvanced.title": "Seteaza Avansat",
   "admin/editor.notification-bar.isAdvanced.description": "Seteaza bara de notificari ca si Avansat",
   "admin/editor.blockClass.title": "Clasa CSS Block",

@@ -21,6 +21,8 @@ interface Props {
   link?: string
   linkText?: string
   icon?: string
+  notifBarIdx?: number
+  blockClass?: string
   /** Used to override default CSS handles */
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
 }
@@ -32,6 +34,8 @@ function NotificationBar({
   link = '',
   linkText = '',
   icon = '',
+  notifBarIdx,
+  blockClass = '',
   classes,
 }: Props) {
   const { handles } = useCssHandles(CSS_HANDLES, { classes })
@@ -62,6 +66,9 @@ function NotificationBar({
       link={link}
       linkText={linkText}
       icon={icon}
+      notifBarIdx={notifBarIdx}
+      blockClass={blockClass}
+      classes={classes}
     />
   )
 }

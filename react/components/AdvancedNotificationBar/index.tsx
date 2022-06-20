@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 import { Link } from 'vtex.render-runtime'
+import { CssHandlesList } from 'vtex.css-handles/react/CssHandlesTypes'
 
 import AnnounceClose from './icons/AnnounceClose'
 import AnnounceRight from './icons/AnnounceRight'
@@ -44,6 +45,11 @@ function AdvancedNotificationBar({
   classes,
 }: Props) {
   const { handles } = useCssHandles(CSS_HANDLES, { classes })
+
+  const block = ([blockClass] as CssHandlesList) ?? ([''] as CssHandlesList)
+  const { handles: customBlockClass } = useCssHandles(block)
+  const cssBlockClass = customBlockClass[Object.keys(customBlockClass)[0]]
+
   const [show, setShow] = useState(false)
 
   const handleClose = () => {
@@ -113,8 +119,7 @@ function AdvancedNotificationBar({
 
   return (
     <div
-      className={`${handles.notificationBarContainer}${blockClass && `--${blockClass}`
-        } relative w-100 pv5`}
+      className={`${handles.notificationBarContainer} ${cssBlockClass} relative w-100 pv5`}
       style={{ backgroundColor: background }}
     >
       <div

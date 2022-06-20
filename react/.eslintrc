@@ -1,6 +1,12 @@
 {
   "rules": {
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   },
   "extends": "vtex-react",
   "env": {
@@ -10,7 +16,10 @@
   },
   "overrides": [
     {
-      "files": ["*.js", "*.jsx"],
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
       "parser": "babel-eslint",
       "parserOptions": {
         "sourceType": "module"

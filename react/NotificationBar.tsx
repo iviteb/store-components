@@ -35,7 +35,7 @@ function NotificationBar({
   linkText = '',
   icon = '',
   notifBarIdx,
-  blockClass = '',
+  blockClass,
   classes,
 }: Props) {
   const { handles } = useCssHandles(CSS_HANDLES, { classes })

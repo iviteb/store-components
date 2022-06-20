@@ -45,7 +45,6 @@
     "@vtex/test-tools": "^3.1.0",
     "@vtex/tsconfig": "^0.5.5",
     "apollo-cache-inmemory": "^1.4.3",
-    "auchanqa.store-components": "http://auchanqa.vtexassets.com/_v/public/typings/v1/auchanqa.store-components@0.0.1/public/@types/auchanqa.store-components",
     "babel-eslint": "^10.1.0",
     "typescript": "3.9.7",
     "vtex.address-form": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-form@4.15.1/public/@types/vtex.address-form",

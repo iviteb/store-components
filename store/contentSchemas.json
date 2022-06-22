@@ -122,6 +122,14 @@
         "placeholder": {
           "$ref": "app:vtex.native-types#/definitions/text",
           "title": "admin/editor.search-bar.placeholder.title"
+        },
+        "pageSlug": {
+          "$ref": "app:vtex.native-types#/definitions/text",
+          "title": "admin/editor.search-bar.pageSlug.title"
+        },
+        "collectionID": {
+          "$ref": "app:vtex.native-types#/definitions/text",
+          "title": "admin/editor.search-bar.collectionID.title"
         }
       }
     },

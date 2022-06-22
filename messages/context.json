@@ -191,5 +191,7 @@
   "admin/editor.product-description.title-prop.title": "Title",
   "admin/editor.search-bar.title": "Search bar",
   "admin/editor.search-bar.placeholder.title": "Placeholder",
+  "admin/editor.search-bar.pageSlug.title": "Page Slug",
+  "admin/editor.search-bar.collectionID.title": "Collection ID",
   "store/back-to-top.label": "Back to top"
 }

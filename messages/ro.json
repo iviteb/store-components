@@ -191,6 +191,8 @@
   "admin/editor.product-description.title-prop.title": "Titlu",
   "admin/editor.search-bar.title": "Bara de căutare",
   "admin/editor.search-bar.placeholder.title": "Placeholder",
+  "admin/editor.search-bar.pageSlug.title": "Pagina Slug",
+  "admin/editor.search-bar.collectionID.title": "ID de Colectie",
   "store/back-to-top.label": "Înapoi la început",
   "admin/editor.toTop.title": "Buton Înapoi la început",
   "admin/editor.toTop.description": "Atunci când se apasă, se întoarce la începutul paginii",

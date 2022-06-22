@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { ModalContext } from 'vtex.modal-layout'
 import { useRuntime } from 'vtex.render-runtime'
@@ -37,6 +37,8 @@ interface Props {
   /** A template for a custom url. It can have a substring ${term} used as placeholder to interpolate the searched term. (e.g. `/search?query=${term}`) */
   customSearchPageUrl?: string
   placeholder?: string
+  pageSlug: string
+  collectionID: number
   /* Autocomplete Horizontal alignment */
   autocompleteAlignment?: 'right' | 'left' | 'center'
   /** Define if autocomplete should be open on input focus or not */
@@ -77,6 +79,8 @@ function SearchBarContainer(props: Props) {
     placeholder = intl.formatMessage({
       id: 'store/search.placeholder',
     }),
+    pageSlug,
+    collectionID,
     autocompleteAlignment = 'right',
     openAutocompleteOnFocus = false,
     containerMode = 'overlay',
@@ -92,7 +96,16 @@ function SearchBarContainer(props: Props) {
 
   const modalDispatch = useModalDispatch()
   const [inputValue, setInputValue] = useState('')
+  const [adminSearchUrl, setAdminSearchUrl] = useState('')
   const { navigate } = useRuntime()
+
+  useEffect(() => {
+    if (pageSlug && collectionID) {
+      setAdminSearchUrl(
+        `/${pageSlug}/?map=productClusterIds,ft&query=/${collectionID}/\${term}`
+      )
+    }
+  }, [collectionID, pageSlug])
 
   const { handles, withModifiers } = useCssHandles(SEARCH_BAR_CSS_HANDLES, {
     classes,
@@ -124,7 +137,18 @@ function SearchBarContainer(props: Props) {
       return
     }
 
+    if (adminSearchUrl?.length > 0) {
+      navigate({
+        to: adminSearchUrl.replace(/\$\{term\}/g, search),
+      })
+      closeModal()
+
+      return
+    }
+
     if (customSearchPageUrl) {
+      setAdminSearchUrl(customSearchPageUrl)
+
       navigate({
         to: customSearchPageUrl.replace(/\$\{term\}/g, search),
       })
@@ -148,6 +172,7 @@ function SearchBarContainer(props: Props) {
   }, [
     inputValue,
     attemptPageTypeSearch,
+    adminSearchUrl,
     customSearchPageUrl,
     navigate,
     closeModal,
@@ -171,7 +196,7 @@ function SearchBarContainer(props: Props) {
         iconClasses={iconClasses}
         maxWidth={maxWidth}
         attemptPageTypeSearch={attemptPageTypeSearch}
-        customSearchPageUrl={customSearchPageUrl}
+        customSearchPageUrl={adminSearchUrl}
         autocompleteAlignment={autocompleteAlignment}
         openAutocompleteOnFocus={openAutocompleteOnFocus}
         blurOnSubmit={blurOnSubmit}

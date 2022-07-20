@@ -42,12 +42,6 @@ NotificationBarList.schema = {
       type: 'array',
       title: 'admin/editor.notification-list.title',
       items: {
-        isAdvanced: {
-          title: 'admin/editor.notification-bar.isAdvanced.title',
-          description: 'admin/editor.notification-bar.isAdvanced.description',
-          type: 'boolean',
-          default: '',
-        },
         content: {
           title: 'admin/editor.notification-bar.content.title',
           description: 'admin/editor.notification-bar.content.description',
@@ -80,6 +74,16 @@ NotificationBarList.schema = {
           widget: {
             'ui:widget': 'image-uploader',
           },
+        },
+        categoryID: {
+          title: 'admin/editor.notification-bar.categoryID.title',
+          $ref: 'app:vtex.native-types#/definitions/text',
+          default: '',
+        },
+        sellerID: {
+          title: 'admin/editor.notification-bar.sellerID.title',
+          $ref: 'app:vtex.native-types#/definitions/text',
+          default: '',
         },
         blockClass: {
           title: 'admin/editor.notification-bar.blockClass.title',

@@ -8,9 +8,6 @@
   },
   "notification.bar": {
     "component": "NotificationBar",
-    "isAdvanced": {
-      "$ref": "app:vtex.store-components#/definitions/NotificationBar"
-    },
     "content": {
       "$ref": "app:vtex.store-components#/definitions/NotificationBar"
     },
@@ -18,6 +15,12 @@
       "$ref": "app:vtex.store-components#/definitions/NotificationBar"
     },
     "linkText": {
+      "$ref": "app:vtex.store-components#/definitions/NotificationBar"
+    },
+    "categoryID": {
+      "$ref": "app:vtex.store-components#/definitions/NotificationBar"
+    },
+    "sellerID": {
       "$ref": "app:vtex.store-components#/definitions/NotificationBar"
     },
     "blockClass": {

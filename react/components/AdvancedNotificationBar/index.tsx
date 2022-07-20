@@ -68,6 +68,8 @@ function AdvancedNotificationBar({
   const { handles } = useCssHandles(CSS_HANDLES, { classes })
 
   const [show, setShow] = useState(false)
+  const [matchCategory, setMatchCategory] = useState(false)
+  const [matchSeller, setMatchSeller] = useState(false)
 
   const pageID = route?.pageContext?.id
 
@@ -96,74 +98,90 @@ function AdvancedNotificationBar({
     setShow(false)
   }
 
+  const handleMatchCategory = async (catID: string) => {
+    const result = await client.query({
+      query: GET_CAT_TREE,
+    })
+
+    // matched finds the id from admin props to an id in any category
+    const matched = findMatchingCategory(
+      result?.data?.categories,
+      String(catID)
+    )
+
+    if (!matched || Object.keys(matched).length === 0) {
+      return false
+    }
+
+    // check if the admin category matches the page id
+    if (String(matched?.id) === String(pageID)) {
+      return true
+    }
+
+    // matchChildren checks if the current page id is found in the matched category or any of its children
+    const matchChildren = findMatchingCategory(matched?.children, pageID)
+
+    if (!matchChildren || Object.keys(matchChildren).length === 0) {
+      return false
+    }
+
+    return true
+  }
+
+  const handleMatchSeller = async (sellID: string) => {
+    const result = await client.query({
+      query: GET_ORDER_FORM,
+    })
+
+    const { sellers } = result?.data?.orderForm
+    const filtered = sellers.find(
+      (seller: Seller) => String(seller.id) === String(sellID)
+    )
+
+    if (filtered) {
+      return true
+    }
+
+    return false
+  }
+
   useEffect(() => {
     if (
-      !window?.sessionStorage?.getItem(
+      window?.sessionStorage?.getItem(
         `closeNotificationBar-${notifBarIdx?.toString()}`
       )
     ) {
-      // For PLP pages with categoryID
-      if (categoryID && !window.isNaN(Number(categoryID))) {
-        client
-          .query({
-            query: GET_CAT_TREE,
-          })
-          .then(result => {
-            // matched finds the id from admin props to an id in any category
-            const matched = findMatchingCategory(
-              result?.data?.categories,
-              String(categoryID)
-            )
+      return
+    }
 
-            if (!matched || Object.keys(matched).length === 0) {
-              return null
-            }
+    if (!categoryID && !sellerID) {
+      setShow(true)
 
-            // check if the admin category matches the page id
-            if (String(matched?.id) === String(pageID)) {
-              setShow(true)
+      return
+    }
 
-              return null
-            }
+    if (categoryID && !window.isNaN(Number(categoryID))) {
+      handleMatchCategory(categoryID).then(result => {
+        setMatchCategory(result)
+      })
+    }
 
-            // matchChildren checks if the current page id is found in the matched category or any of its children
-            const matchChildren = findMatchingCategory(
-              matched?.children,
-              pageID
-            )
-
-            if (!matchChildren || Object.keys(matchChildren).length === 0) {
-              return null
-            }
-
-            setShow(true)
-
-            return null
-          })
-
-        // For PDP pages with sellerID
-      } else if (sellerID && !window.isNaN(Number(sellerID))) {
-        client
-          .query({
-            query: GET_ORDER_FORM,
-          })
-          .then(result => {
-            const { sellers } = result?.data?.orderForm
-            const filtered = sellers.find(
-              (seller: Seller) => String(seller.id) === String(sellerID)
-            )
-
-            if (filtered) {
-              setShow(true)
-            }
-          })
-
-        // For other cases
-      } else {
-        setShow(true)
-      }
+    if (sellerID && !window.isNaN(Number(sellerID))) {
+      handleMatchSeller(sellerID).then(result => {
+        setMatchSeller(result)
+      })
     }
   }, [categoryID, client, notifBarIdx, pageID, sellerID])
+
+  useEffect(() => {
+    if (categoryID && sellerID) {
+      setShow(matchCategory && matchSeller)
+    } else if (!categoryID && sellerID) {
+      setShow(matchSeller)
+    } else if (categoryID && !sellerID) {
+      setShow(matchCategory)
+    }
+  }, [categoryID, matchCategory, matchSeller, sellerID])
 
   if (!content) {
     return null

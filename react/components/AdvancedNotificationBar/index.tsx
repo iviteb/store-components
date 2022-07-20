@@ -1,12 +1,12 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 import { Link, useRuntime } from 'vtex.render-runtime'
 import { CssHandlesList } from 'vtex.css-handles/react/CssHandlesTypes'
 import { useApolloClient } from 'react-apollo'
 
-import GET_Cat_Tree from '../../graphql/getCategoryTree.gql'
-import GET_ORDERFORM from '../../graphql/getOrderForm.gql'
+import GET_CAT_TREE from '../../graphql/getCategoryTree.gql'
+import GET_ORDER_FORM from '../../graphql/getOrderForm.gql'
 import AnnounceClose from './icons/AnnounceClose'
 import AnnounceRight from './icons/AnnounceRight'
 import AnnounceInfo from './icons/AnnounceInfo'
@@ -33,8 +33,8 @@ interface Props {
   linkText?: string
   icon?: string
   notifBarIdx?: number
-  categoryID?: number
-  sellerID?: number
+  categoryID?: string
+  sellerID?: string
   blockClass?: string
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
 }
@@ -75,34 +75,17 @@ function AdvancedNotificationBar({
   const { handles: customBlockClass } = useCssHandles(block)
   const cssBlockClass = customBlockClass[Object.keys(customBlockClass)[0]]
 
-  const findMatchingCategory = (departaments: [Category], findId: string) => {
-    let result = {}
+  const findMatchingCategory = (categories: [Category], findId: string) => {
+    for (const cat of categories) {
+      const result: any =
+        String(cat.id) === String(findId)
+          ? cat
+          : cat.hasChildren && findMatchingCategory(cat.children, findId)
 
-    departaments.forEach((dep: Category) => {
-      if (String(dep.id) === String(findId)) {
-        result = dep
+      if (result) {
+        return result
       }
-
-      dep?.children?.forEach((cat: Category) => {
-        if (String(cat.id) === String(findId)) {
-          result = cat
-        }
-
-        cat?.children?.forEach((subcat: Category) => {
-          if (String(subcat.id) === String(findId)) {
-            result = subcat
-          }
-
-          subcat?.children?.forEach((subsubcat: Category) => {
-            if (String(subsubcat.id) === String(findId)) {
-              result = subsubcat
-            }
-          })
-        })
-      })
-    })
-
-    return Object(result)
+    }
   }
 
   const handleClose = () => {
@@ -123,7 +106,7 @@ function AdvancedNotificationBar({
       if (categoryID && !window.isNaN(Number(categoryID))) {
         client
           .query({
-            query: GET_Cat_Tree,
+            query: GET_CAT_TREE,
           })
           .then(result => {
             // matched finds the id from admin props to an id in any category
@@ -162,15 +145,15 @@ function AdvancedNotificationBar({
       } else if (sellerID && !window.isNaN(Number(sellerID))) {
         client
           .query({
-            query: GET_ORDERFORM,
+            query: GET_ORDER_FORM,
           })
           .then(result => {
             const { sellers } = result?.data?.orderForm
-            const filtered = sellers.filter(
+            const filtered = sellers.find(
               (seller: Seller) => String(seller.id) === String(sellerID)
             )
 
-            if (filtered.length > 0) {
+            if (filtered) {
               setShow(true)
             }
           })
@@ -312,12 +295,8 @@ function AdvancedNotificationBar({
   )
 }
 
-const MemoizedAdvNotificationBar: React.MemoExoticComponent<
-  typeof AdvancedNotificationBar
-> & { schema?: Record<string, string> } = memo(AdvancedNotificationBar)
-
-MemoizedAdvNotificationBar.schema = {
+AdvancedNotificationBar.schema = {
   title: 'admin/editor.notification-bar.title',
 }
 
-export default MemoizedAdvNotificationBar
+export default AdvancedNotificationBar

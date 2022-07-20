@@ -1,0 +1,8 @@
+query getOrderForm {
+  orderForm {
+    sellers {
+      id
+      name
+    }
+  }
+}

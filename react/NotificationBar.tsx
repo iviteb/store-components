@@ -1,10 +1,6 @@
 import React, { memo } from 'react'
-import { useIntl } from 'react-intl'
-import { formatIOMessage } from 'vtex.native-types'
-import { useCssHandles } from 'vtex.css-handles'
 import type { CssHandlesTypes } from 'vtex.css-handles'
 
-import { SanitizedHTML } from './components/SanitizedHTML'
 import AdvancedNotificationBar from './components/AdvancedNotificationBar'
 
 const CSS_HANDLES = [
@@ -15,51 +11,36 @@ const CSS_HANDLES = [
 
 interface Props {
   /** Text to be used in the bar */
-  isAdvanced?: boolean
   content?: string
   color?: string
   link?: string
   linkText?: string
   icon?: string
   notifBarIdx?: number
+  categoryID?: number
+  sellerID?: number
   blockClass?: string
   /** Used to override default CSS handles */
   classes?: CssHandlesTypes.CustomClasses<typeof CSS_HANDLES>
 }
 
 function NotificationBar({
-  isAdvanced,
   content = '',
   color = '',
   link = '',
   linkText = '',
   icon = '',
   notifBarIdx,
+  categoryID,
+  sellerID,
   blockClass,
   classes,
 }: Props) {
-  const { handles } = useCssHandles(CSS_HANDLES, { classes })
-  const intl = useIntl()
-
   if (!content) {
     return null
   }
 
-  return !isAdvanced ? (
-    <div
-      className={`${handles.notificationBarContainer} bg-base--inverted c-on-base--inverted w-100`}
-    >
-      <div
-        className={`${handles.notificationBarInner} min-h-large flex items-center justify-center`}
-      >
-        <div className={handles.notificationContent}>
-          <SanitizedHTML
-            content={formatIOMessage({ id: content, intl }) as string}
-          />
-        </div>
-      </div>
-    </div>
-  ) : (
+  return (
     <AdvancedNotificationBar
       content={content}
       color={color}
@@ -67,6 +48,8 @@ function NotificationBar({
       linkText={linkText}
       icon={icon}
       notifBarIdx={notifBarIdx}
+      categoryID={categoryID}
+      sellerID={sellerID}
       blockClass={blockClass}
       classes={classes}
     />
